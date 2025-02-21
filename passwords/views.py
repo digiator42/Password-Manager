@@ -4,6 +4,7 @@ from .models import PasswordEntry
 from .serializer import PasswordFormSerializer
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, logout
+from django.contrib.auth.models import User
 
 @login_required
 def password_list(request):
@@ -37,6 +38,14 @@ def delete_password(request, pk):
         entry.delete()
         return redirect('password_list')
     return render(request, 'delete_password.html', {'entry': entry})
+
+@login_required
+def profile(request):
+    user = get_object_or_404(User, username=request.user)
+    unwanted_keys = ['password', 'id', 'is_staff', 'is_active', 'is_superuser']
+    user_details = {key: value for key, value in user.__dict__.items() 
+                    if key not in unwanted_keys and not key.startswith('_')}
+    return render(request, 'profile.html', {'user_details': user_details})
 
 def signup(request):
     if request.method == 'POST':

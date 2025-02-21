@@ -3,48 +3,17 @@
 {% block content %}
 <div class="profile-container">
     <div class="profile-header">
-        <h1>User Profile</h1>
+        <h2>User Profile</h2>
     </div>
     <div class="profile-details">
-        <img src="{{ user.profile_picture_url || 'none' }}" alt="Profile Picture" class="profile-picture">
-        <h2>{{ user.username }}</h2>
-        <p>Email: {{ user.email }}</p>
-        <p>Joined: {{ user.date_joined }}</p>
+        <img src="{{ user.picture | default:'/static/images/default.png' }}" alt="Profile Picture"
+            class="profile-picture">
+        <h2>{{ request.user.username }}</h2>
+        <ul>
+            {% for key, value in user_details.items %}
+            <li>{{ key }}: {{ value }}</li>
+            {% endfor %}
+        </ul>
     </div>
 </div>
 {% endblock %}
-
-<style>
-.profile-container {
-    width: 50%;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.profile-header {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.profile-details {
-    text-align: center;
-}
-
-.profile-picture {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    margin-bottom: 20px;
-}
-
-h1, h2 {
-    color: #333;
-}
-
-p {
-    color: #666;
-}
-</style></div>
