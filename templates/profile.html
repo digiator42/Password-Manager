@@ -18,12 +18,21 @@
     <div>
         <h2>Two-Factor Authentication</h2>
         {% if user.is_verified %}
-        <p>2fa is enabled.</p>
+        <p  style="color: green;">2fa is enabled.</p>
         <a href="{% url 'two_factor:setup' %}">Change Settings</a>
         {% else %}
         <p>2fa is disabled.</p>
         <a href="{% url 'two_factor:setup' %}">Enable 2fa</a>
         {% endif %}
+    </div>
+    <div>
+        <div class="account-manager-links"></div>
+            <h2>Account Management</h2>
+            <ul>
+                <li><a href="{% url 'password_change' %}">Change Password</a></li>
+                <li><a href="{% url 'password_reset' %}">Reset Password</a></li>
+            </ul>
+        </div>
     </div>
 </div>
 {% endblock %}
