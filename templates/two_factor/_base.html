@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Password Manager</title>
     <!-- Internal CSS -->
@@ -36,29 +37,33 @@
             color: white;
             text-decoration: none;
             margin-left: 15px;
+            background-color: #34495e;
+            border-radius: 5px;
+            padding: 5px;
         }
 
         nav a:hover {
-            text-decoration: underline;
+            color: #ffcc00;
+            background-color: #34495e;
+            border-radius: 5px;
+            padding: 5px;
         }
 
         /* Main Content Area */
         .container {
-            max-width: 1200px;
             margin: 20px auto;
             padding: 20px;
-            background-color: white;
+            background-color: rgb(250, 245, 245);
             border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1);
         }
 
-        h1 {
+        #pass-manager {
             color: white;
         }
-
         h2,
         h3 {
-            color: #140168;
+            color: #0b032c;
         }
 
         /* Buttons */
@@ -83,6 +88,7 @@
         /* Forms */
         form {
             margin-bottom: 20px;
+            text-align: left;
         }
 
         label {
@@ -125,7 +131,7 @@
             top: 0;
             margin-left: 10px;
         }
-
+        /* Profile */
         #profile-picture {
             width: 100px;
             height: 100px;
@@ -157,10 +163,29 @@
             border: 2px solid #ccc;
             margin-bottom: 20px;
         }
-
+        /* ULs */
         ul {
             margin-top: 10px;
             text-align: left;
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        ul li span.key {
+            font-weight: bold;
+            color: #333;
+        }
+
+        ul li span.value {
+            color: #666;
         }
 
         p {
@@ -169,6 +194,7 @@
         #errorlist {
             color: red;
         }
+
     </style>
 </head>
 
@@ -176,14 +202,15 @@
     <!-- Navigation Bar -->
     <nav>
         <div>
-            <h1>Password Manager</h1>
+            <h1 class="pass-manager">Password Manager</h1>
         </div>
         <div class="nav-links" style="display: flex;flex-flow: row;">
-            <div style="margin-top: 5px;">
+            <div style="margin-top: 12px;">
                 {% if user.is_authenticated %}
                 <a href="{% url 'password_list' %}">Home</a>
                 <a href="{% url 'add_password' %}">Add Password</a>
                 <a href="{% url 'profile' %}">Profile</a>
+                <a href="{% url 'two_factor:setup' %}">2fa</a>
             </div>
             <form class="logout" method="post" action="{% url 'logout' %}">
                 {% csrf_token %}

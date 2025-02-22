@@ -44,6 +44,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'passwords',
+    'django_otp',
+    'django_otp.plugins.otp_static',
+    'django_otp.plugins.otp_totp',
+    'two_factor',
 ]
 
 MIDDLEWARE = [
@@ -54,7 +58,15 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_otp.middleware.OTPMiddleware',
 ]
+
+LOGIN_URL = 'two_factor:login'
+LOGOUT_REDIRECT_URL = 'two_factor:login'
+TWO_FACTOR_QR_FACTORY = 'qrcode.image.svg.SvgPathImage'
+TWO_FACTOR_PHONE_METHODS = ['call', 'sms']
+LOGIN_URL = 'two_factor:login'
+LOGOUT_REDIRECT_URL = 'two_factor:login' 
 
 ROOT_URLCONF = 'password_manager.urls'
 
